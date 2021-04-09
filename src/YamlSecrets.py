@@ -1,8 +1,14 @@
 import os
 
 class YamlSecrets:
-    def __init__(self, absolutePath):
-        self.absoluteFilePath = absolutePath
+    def __init__(self, path, absolute=True):
+        if absolute:
+            self.absoluteFilePath = path
+        else:
+            workingFolder = os.path.dirname(os.path.abspath(__file__))
+            relativeFilePath = path
+            self.absoluteFilePath = os.path.join(workingFolder, relativeFilePath)
+
         print("[yaml secrets] path:", self.absoluteFilePath)
         self.dictionary = {}
         self.load()
